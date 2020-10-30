@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Authors>Jader Dalmas</Authors>
+    <Company>Me Co</Company>
+    <Product>Desafio</Product>
+    <NeutralLanguage>en</NeutralLanguage>
+    <RepositoryUrl>https://github.com/jaderdalmas/Desafio_291020</RepositoryUrl>
+  </PropertyGroup>
+
+
+</Project>
