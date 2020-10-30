@@ -9,16 +9,19 @@ namespace API.Models
         public InsumoOutput() { }
         public InsumoOutput(InsumoInput insumo)
         {
-            Type = insumo.Location.State.Region();
-            Gender = insumo.Gender.UpperFirst();
-            Name = insumo.Name;
-            Location = insumo.Location;
-            Email = insumo.Email;
-            Birthday = insumo.Dob.Date;
-            Registered = insumo.Registered.Date;
-            TelephoneNumbers = new List<string>() { insumo.Phone.E164() };
-            MobileNumbers = new List<string>() { insumo.Cell.E164() };
-            Picture = insumo.Picture;
+            if (insumo != null)
+            {
+                Type = insumo.Location?.State?.Region();
+                Gender = insumo.Gender?.UpperFirst();
+                Name = insumo.Name;
+                Location = insumo.Location;
+                Email = insumo.Email;
+                Birthday = insumo.Dob?.Date ?? DateTime.MinValue;
+                Registered = insumo.Registered?.Date ?? DateTime.MinValue;
+                TelephoneNumbers = new List<string>() { insumo.Phone.E164() };
+                MobileNumbers = new List<string>() { insumo.Cell.E164() };
+                Picture = insumo.Picture;
+            }
         }
 
         public string Type { get; set; }

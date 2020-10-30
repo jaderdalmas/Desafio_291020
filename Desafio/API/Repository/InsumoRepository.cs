@@ -1,5 +1,4 @@
 ﻿using API.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,9 +13,12 @@ namespace API.Repository
             _list = new List<InsumoOutput>();
         }
 
-        public bool Add(InsumoInput insumo) => Add(insumo.GetOutput());
+        public bool Add(InsumoInput insumo) => Add(insumo?.GetOutput());
         public bool Add(InsumoOutput insumo)
         {
+            if (insumo == null)
+                return false;
+
             _list.Add(insumo);
 
             return true;
