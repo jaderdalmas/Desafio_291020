@@ -9,5 +9,9 @@
     <RepositoryUrl>https://github.com/jaderdalmas/Desafio_291020</RepositoryUrl>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>IDE1006;1701;1702</NoWarn>
+  </PropertyGroup>
+
 
 </Project>

@@ -29,6 +29,7 @@ namespace UnitTest.Service
 
             // Assert
             Assert.NotEmpty(result);
+            Assert.Equal(1000, result.Count());
         }
     }
 }

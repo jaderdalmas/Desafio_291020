@@ -17,7 +17,6 @@ namespace API.Extension
                 return string.Empty;
         }
 
-
         public static string UpperFirst(this string text)
         {
             if (string.IsNullOrWhiteSpace(text))

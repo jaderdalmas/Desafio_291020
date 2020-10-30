@@ -4,6 +4,16 @@ namespace API.Models
 {
     public class InsumoInput
     {
+        public InsumoInput() { }
+
+        public InsumoInput(string gender, string email, string phone, string cell)
+        {
+            Gender = gender;
+            Email = email;
+            Phone = phone;
+            Cell = cell;
+        }
+
         [JsonPropertyName("gender")]
         public string Gender { get; set; }
 

@@ -4,6 +4,13 @@ namespace API.Models
 {
     public class Timezone
     {
+        public Timezone() { }
+        public Timezone(string offset, string description)
+        {
+            Offset = offset;
+            Description = description;
+        }
+
         [JsonPropertyName("offset")]
         public string Offset { get; set; }
 

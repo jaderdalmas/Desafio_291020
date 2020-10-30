@@ -4,6 +4,14 @@ namespace API.Models
 {
     public class Name
     {
+        public Name() { }
+        public Name(string title, string first, string last)
+        {
+            Title = title;
+            First = first;
+            Last = last;
+        }
+
         [JsonPropertyName("title")]
         public string Title { get; set; }
 

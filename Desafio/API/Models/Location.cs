@@ -4,6 +4,16 @@ namespace API.Models
 {
     public class Location
     {
+        public Location() { }
+        public Location(string region, string street, string city, string state, string postcode)
+        {
+            Region = region;
+            Street = street;
+            City = city;
+            State = state;
+            Postcode = int.Parse(postcode);
+        }
+
         [JsonPropertyName("region")]
         public string Region { get; set; }
 

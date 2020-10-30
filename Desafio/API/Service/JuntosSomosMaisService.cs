@@ -1,6 +1,6 @@
-﻿using API.Models;
+﻿using API.Extension;
+using API.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -39,12 +39,9 @@ namespace API.Service
                 return new List<InsumoInput>();
 
             var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (string.IsNullOrEmpty(result)) return new List<InsumoInput>();
+            if (string.IsNullOrWhiteSpace(result)) return new List<InsumoInput>();
 
-            var list = result.Split("\r\n").Where(x => !string.IsNullOrWhiteSpace(x));
-            var header = list.ElementAt(0);
-
-            return new List<InsumoInput>();
+            return result.Split("\r\n").GetInputs();
         }
     }
 }
