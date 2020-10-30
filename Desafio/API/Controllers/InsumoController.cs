@@ -1,11 +1,9 @@
 ﻿using API.Models;
 using API.Repository;
-using API.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.Controllers
 {
