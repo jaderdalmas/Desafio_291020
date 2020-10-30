@@ -22,9 +22,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<InsumoOutput> Get(string region, EClassification classification)
+        public InsumoResponse Get(string region, EClassification classification, int pageNumber = 0, int pageSize = 50)
         {
-            return _insumos.GetInsumos(region, classification);
+            return new InsumoResponse(_insumos.GetInsumos(region, classification), pageNumber, pageSize);
         }
 
         [HttpPost]

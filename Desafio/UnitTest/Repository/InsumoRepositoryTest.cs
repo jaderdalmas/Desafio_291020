@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using API.Repository;
 using API.Service;
+using System.Linq;
 using System.Net.Http;
 using Xunit;
 
@@ -80,6 +81,47 @@ namespace UnitTest.Repository
 
             // Assert
             Assert.NotEmpty(result);
+        }
+
+        [Fact]
+        public void InsumoResponse_0_50()
+        {
+            // Arrange
+            var result = Repo.GetInsumos("Norte", EClassification.LABORIOUS);
+
+            // Act
+            var response = new InsumoResponse(result, 0, 50);
+
+            // Assert
+            Assert.NotEmpty(response.Users);
+            Assert.Equal(50, response.Users.Count());
+        }
+
+        [Fact]
+        public void InsumoResponse_10_50()
+        {
+            // Arrange
+            var result = Repo.GetInsumos("Norte", EClassification.LABORIOUS);
+
+            // Act
+            var response = new InsumoResponse(result, 10, 50);
+
+            // Assert
+            Assert.NotEmpty(response.Users);
+            Assert.Equal(6, response.Users.Count());
+        }
+
+        [Fact]
+        public void InsumoResponse_11_50()
+        {
+            // Arrange
+            var result = Repo.GetInsumos("Norte", EClassification.LABORIOUS);
+
+            // Act
+            var response = new InsumoResponse(result, 11, 50);
+
+            // Assert
+            Assert.Empty(response.Users);
         }
     }
 }
