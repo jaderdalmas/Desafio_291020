@@ -14,31 +14,13 @@ namespace API.Controllers
     public class InsumoController : ControllerBase
     {
         private readonly ILogger<InsumoController> _logger;
-
-        private readonly IJuntosSomosMaisService _jsm;
         private readonly IInsumoRepository _insumos;
 
-        public InsumoController(ILogger<InsumoController> logger, IJuntosSomosMaisService jsm, IInsumoRepository insumos)
+        public InsumoController(ILogger<InsumoController> logger, IInsumoRepository insumos)
         {
             _logger = logger;
 
-            _jsm = jsm;
             _insumos = insumos;
-
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            var tasks = new List<Task<IEnumerable<InsumoInput>>>
-            {
-                _jsm.GetJson(),
-                _jsm.GetCSV()
-            };
-            Task.WaitAll(tasks.ToArray());
-
-            foreach (var input in tasks[0].Result.Concat(tasks[1].Result).AsParallel())
-                _insumos.Add(input);
         }
 
         [HttpGet]

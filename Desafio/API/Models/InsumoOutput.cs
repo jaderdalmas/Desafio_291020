@@ -11,10 +11,12 @@ namespace API.Models
         {
             if (insumo != null)
             {
-                Type = insumo.Location?.State?.Region();
+                Type = insumo.Location?.Coordinates?.Classification().ToString();
                 Gender = insumo.Gender?.UpperFirst();
                 Name = insumo.Name;
                 Location = insumo.Location;
+                if (Location != null)
+                    Location.Region = insumo.Location?.State?.Region();
                 Email = insumo.Email;
                 Birthday = insumo.Dob?.Date ?? DateTime.MinValue;
                 Registered = insumo.Registered?.Date ?? DateTime.MinValue;

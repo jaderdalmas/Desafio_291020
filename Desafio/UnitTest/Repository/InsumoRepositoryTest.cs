@@ -1,12 +1,14 @@
 ﻿using API.Models;
 using API.Repository;
+using API.Service;
+using System.Net.Http;
 using Xunit;
 
 namespace UnitTest.Repository
 {
     public class InsumoRepositoryTest
     {
-        private IInsumoRepository Repo => new InsumoRepository();
+        private IInsumoRepository Repo => new InsumoRepository(new JuntosSomosMaisService(new HttpClient()));
 
         [Fact]
         public void Add_Input_Null()
@@ -68,6 +70,16 @@ namespace UnitTest.Repository
 
             // Assert
             Assert.Empty(result);
+        }
+
+        [Fact]
+        public void Get_NotEmpty()
+        {
+            // Act
+            var result = Repo.GetInsumos("Norte", EClassification.LABORIOUS);
+
+            // Assert
+            Assert.NotEmpty(result);
         }
     }
 }
