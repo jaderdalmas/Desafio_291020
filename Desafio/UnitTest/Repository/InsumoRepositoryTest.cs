@@ -6,7 +6,7 @@ namespace UnitTest.Repository
 {
     public class InsumoRepositoryTest
     {
-        private InsumoRepository repo => new InsumoRepository();
+        private IInsumoRepository Repo => new InsumoRepository();
 
         [Fact]
         public void Add_Input_Null()
@@ -15,7 +15,7 @@ namespace UnitTest.Repository
             InsumoInput insumo = null;
 
             // Act
-            var result = repo.Add(insumo);
+            var result = Repo.Add(insumo);
 
             // Assert
             Assert.False(result);
@@ -28,7 +28,7 @@ namespace UnitTest.Repository
             var insumo = new InsumoInput();
 
             // Act
-            var result = repo.Add(insumo);
+            var result = Repo.Add(insumo);
 
             // Assert
             Assert.True(result);
@@ -41,7 +41,7 @@ namespace UnitTest.Repository
             InsumoOutput insumo = null;
 
             // Act
-            var result = repo.Add(insumo);
+            var result = Repo.Add(insumo);
 
             // Assert
             Assert.False(result);
@@ -54,7 +54,7 @@ namespace UnitTest.Repository
             var insumo = new InsumoOutput();
 
             // Act
-            var result = repo.Add(insumo);
+            var result = Repo.Add(insumo);
 
             // Assert
             Assert.True(result);
@@ -64,7 +64,7 @@ namespace UnitTest.Repository
         public void Get_Empty()
         {
             // Act
-            var result = repo.GetInsumos(string.Empty, EClassification.LABORIOUS);
+            var result = Repo.GetInsumos(string.Empty, EClassification.LABORIOUS);
 
             // Assert
             Assert.Empty(result);
