@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace API.Models
 {
-    public class InsumoOutput
+    public class UserOutput
     {
-        public InsumoOutput() { }
-        public InsumoOutput(InsumoInput insumo)
+        public UserOutput() { }
+        public UserOutput(UserInput insumo)
         {
             if (insumo != null)
             {

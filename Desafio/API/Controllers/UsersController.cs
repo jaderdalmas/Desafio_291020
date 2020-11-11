@@ -9,12 +9,12 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class InsumoController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        private readonly ILogger<InsumoController> _logger;
-        private readonly IInsumoRepository _insumos;
+        private readonly ILogger<UsersController> _logger;
+        private readonly IUserRepository _insumos;
 
-        public InsumoController(ILogger<InsumoController> logger, IInsumoRepository insumos)
+        public UsersController(ILogger<UsersController> logger, IUserRepository insumos)
         {
             _logger = logger;
 
@@ -28,7 +28,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public bool Post(IEnumerable<InsumoInput> insumos)
+        public bool Post(IEnumerable<UserInput> insumos)
         {
             var result = new List<bool>();
             foreach (var insumo in insumos.AsParallel())

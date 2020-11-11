@@ -5,7 +5,7 @@ namespace API.Models
 {
     public class InsumoResponse
     {
-        public InsumoResponse(IEnumerable<InsumoOutput> list, int number, int size)
+        public InsumoResponse(IEnumerable<UserOutput> list, int number, int size)
         {
             PageNumber = number;
             PageSize = size;
@@ -17,6 +17,6 @@ namespace API.Models
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
-        public IEnumerable<InsumoOutput> Users { get; set; }
+        public IEnumerable<UserOutput> Users { get; set; }
     }
 }

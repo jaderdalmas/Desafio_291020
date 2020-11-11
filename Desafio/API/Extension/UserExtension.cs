@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace API.Extension
 {
-    public static class InsumoExtension
+    public static class UserExtension
     {
-        public static IEnumerable<InsumoInput> GetInputs(this IEnumerable<string> list)
+        public static IEnumerable<UserInput> GetInputs(this IEnumerable<string> list)
         {
-            IList<InsumoInput> result = new List<InsumoInput>();
+            IList<UserInput> result = new List<UserInput>();
             if (!list.Any())
                 return result;
 
@@ -21,7 +21,7 @@ namespace API.Extension
             return result;
         }
 
-        private static void AddInput(ref IList<InsumoInput> list, string header, string item)
+        private static void AddInput(ref IList<UserInput> list, string header, string item)
         {
             var headers = header.Split("\",").Select(x => x.Replace("\"", string.Empty));
             var itens = item.Split("\",").Select(x => x.Replace("\"", string.Empty));
@@ -30,7 +30,7 @@ namespace API.Extension
             for (int i = 0; i < headers.Count(); i++)
                 dic.Add(headers.ElementAt(i), itens.ElementAt(i));
 
-            var input = new InsumoInput(dic["gender"], dic["email"], dic["phone"], dic["cell"])
+            var input = new UserInput(dic["gender"], dic["email"], dic["phone"], dic["cell"])
             {
                 Name = new Name(dic["name__title"], dic["name__first"], dic["name__last"]),
                 Location = new Location(string.Empty, dic["location__street"], dic["location__city"], dic["location__state"], dic["location__postcode"])

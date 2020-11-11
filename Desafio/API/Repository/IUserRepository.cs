@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace API.Repository
 {
-    public interface IInsumoRepository
+    public interface IUserRepository
     {
         /// <summary>
         /// Get Insumos by region and classification
@@ -11,20 +11,20 @@ namespace API.Repository
         /// <param name="region">Country Region</param>
         /// <param name="classification">Location Classification</param>
         /// <returns>List of Insumos</returns>
-        IEnumerable<InsumoOutput> GetInsumos(string region, EClassification classification);
+        IEnumerable<UserOutput> GetInsumos(string region, EClassification classification);
 
         /// <summary>
         /// Add Insumo
         /// </summary>
         /// <param name="insumo">insumo</param>
         /// <returns>true if ok</returns>
-        bool Add(InsumoInput insumo);
+        bool Add(UserInput insumo);
 
         /// <summary>
         /// Add Insumo
         /// </summary>
         /// <param name="insumo">insumo</param>
         /// <returns>true if ok</returns>
-        bool Add(InsumoOutput insumo);
+        bool Add(UserOutput insumo);
     }
 }

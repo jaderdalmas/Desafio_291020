@@ -7,15 +7,15 @@ using Xunit;
 
 namespace UnitTest.Repository
 {
-    public class InsumoRepositoryTest
+    public class UserRepositoryTest
     {
-        private IInsumoRepository Repo => new InsumoRepository(new JuntosSomosMaisService(new HttpClient()));
+        private IUserRepository Repo => new UserRepository(new JuntosSomosMaisService(new HttpClient()));
 
         [Fact]
         public void Add_Input_Null()
         {
             // Arrange
-            InsumoInput insumo = null;
+            UserInput insumo = null;
 
             // Act
             var result = Repo.Add(insumo);
@@ -28,7 +28,7 @@ namespace UnitTest.Repository
         public void Add_Input_Empty()
         {
             // Arrange
-            var insumo = new InsumoInput();
+            var insumo = new UserInput();
 
             // Act
             var result = Repo.Add(insumo);
@@ -41,7 +41,7 @@ namespace UnitTest.Repository
         public void Add_Output_Null()
         {
             // Arrange
-            InsumoOutput insumo = null;
+            UserOutput insumo = null;
 
             // Act
             var result = Repo.Add(insumo);
@@ -54,7 +54,7 @@ namespace UnitTest.Repository
         public void Add_Output_Empty()
         {
             // Arrange
-            var insumo = new InsumoOutput();
+            var insumo = new UserOutput();
 
             // Act
             var result = Repo.Add(insumo);

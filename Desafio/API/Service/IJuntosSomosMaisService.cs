@@ -10,12 +10,12 @@ namespace API.Service
         /// Get Insumos from JSM as Json
         /// </summary>
         /// <returns>List of Insumos</returns>
-        Task<IEnumerable<InsumoInput>> GetJson();
+        Task<IEnumerable<UserInput>> GetJson();
 
         /// <summary>
         /// Get Insumos from JSM as Csv
         /// </summary>
         /// <returns>List of Insumos</returns>
-        Task<IEnumerable<InsumoInput>> GetCSV();
+        Task<IEnumerable<UserInput>> GetCSV();
     }
 }

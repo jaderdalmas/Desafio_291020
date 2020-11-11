@@ -3,9 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace API.Models
 {
-    public class Insumos
+    public class User
     {
         [JsonPropertyName("results")]
-        public IEnumerable<InsumoInput> Results { get; set; }
+        public IEnumerable<UserInput> Results { get; set; }
     }
 }

@@ -17,29 +17,29 @@ namespace API.Service
             _client = client;
         }
 
-        public async Task<IEnumerable<InsumoInput>> GetJson()
+        public async Task<IEnumerable<UserInput>> GetJson()
         {
             var response = await _client.GetAsync($"{Url}/input-backend.json").ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
-                return new List<InsumoInput>();
+                return new List<UserInput>();
 
             var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (string.IsNullOrEmpty(result)) return new List<InsumoInput>();
+            if (string.IsNullOrEmpty(result)) return new List<UserInput>();
 
-            var insumos = JsonSerializer.Deserialize<Insumos>(result);
+            var insumos = JsonSerializer.Deserialize<User>(result);
             return insumos.Results;
         }
 
-        public async Task<IEnumerable<InsumoInput>> GetCSV()
+        public async Task<IEnumerable<UserInput>> GetCSV()
         {
             var response = await _client.GetAsync($"{Url}/input-backend.csv").ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
-                return new List<InsumoInput>();
+                return new List<UserInput>();
 
             var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (string.IsNullOrWhiteSpace(result)) return new List<InsumoInput>();
+            if (string.IsNullOrWhiteSpace(result)) return new List<UserInput>();
 
             return result.Split("\r\n").GetInputs();
         }

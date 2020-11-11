@@ -4,7 +4,7 @@ using Xunit;
 
 namespace UnitTest.Extension
 {
-    public class InsumosExtensionTest
+    public class UserExtensionTest
     {
         [Fact]
         public void GetInputs()

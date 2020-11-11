@@ -23,10 +23,10 @@ namespace API
             services.AddControllers();
 
             // Services
-            services.AddSingleton<IJuntosSomosMaisService, JuntosSomosMaisService>();
+            services.AddHttpClient<IJuntosSomosMaisService, JuntosSomosMaisService>();
 
             // Repositories
-            services.AddSingleton<IInsumoRepository, InsumoRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

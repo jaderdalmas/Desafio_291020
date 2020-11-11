@@ -2,11 +2,11 @@
 
 namespace API.Models
 {
-    public class InsumoInput
+    public class UserInput
     {
-        public InsumoInput() { }
+        public UserInput() { }
 
-        public InsumoInput(string gender, string email, string phone, string cell)
+        public UserInput(string gender, string email, string phone, string cell)
         {
             Gender = gender;
             Email = email;
@@ -41,6 +41,6 @@ namespace API.Models
         [JsonPropertyName("picture")]
         public Picture Picture { get; set; }
 
-        public InsumoOutput GetOutput() => new InsumoOutput(this);
+        public UserOutput GetOutput() => new UserOutput(this);
     }
 }
