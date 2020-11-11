@@ -38,8 +38,9 @@ namespace API
             services.AddServices();
             services.AddRepositories();
 
-            services.AddSwagger();
+            services.AddCompression();
             services.AddHealthCheck(Configuration);
+            services.AddSwagger();
         }
 
         /// <summary>
@@ -54,8 +55,9 @@ namespace API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.ConfigureSwagger();
+            app.ConfigureCompression();
             app.ConfigureHealthCheck();
+            app.ConfigureSwagger();
 
             app.UseHttpsRedirection();
             app.UseRouting();
