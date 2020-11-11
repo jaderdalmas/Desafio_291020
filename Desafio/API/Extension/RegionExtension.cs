@@ -2,6 +2,9 @@
 
 namespace API.Extension
 {
+    /// <summary>
+    /// Region Extension
+    /// </summary>
     public static class RegionExtension
     {
         private static readonly Dictionary<string, string> regions = new Dictionary<string, string>()
@@ -39,6 +42,11 @@ namespace API.Extension
             {  "santa catarina", "Sul"  }
         };
 
+        /// <summary>
+        /// Get region from state
+        /// </summary>
+        /// <param name="state">state name</param>
+        /// <returns>region name</returns>
         public static string Region(this string state)
         {
             if (string.IsNullOrWhiteSpace(state) || !regions.ContainsKey(state.ToLower()))

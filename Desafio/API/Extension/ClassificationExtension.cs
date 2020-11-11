@@ -2,8 +2,16 @@
 
 namespace API.Extension
 {
+    /// <summary>
+    /// Classification Extension
+    /// </summary>
     public static class ClassificationExtension
     {
+        /// <summary>
+        /// Get Eclassification from a Coordinate
+        /// </summary>
+        /// <param name="coordinates">Cordinates</param>
+        /// <returns>Eclassification</returns>
         public static EClassification Classification(this Coordinates coordinates)
         {
             if (!int.TryParse(coordinates?.Longitude, out int lon) || !int.TryParse(coordinates?.Latitude, out int lat))

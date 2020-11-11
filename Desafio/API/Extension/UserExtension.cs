@@ -4,26 +4,40 @@ using System.Linq;
 
 namespace API.Extension
 {
+    /// <summary>
+    /// User Extension
+    /// </summary>
     public static class UserExtension
     {
+        /// <summary>
+        /// Get User Inputs as List
+        /// </summary>
+        /// <param name="list">list of strings (users)</param>
+        /// <returns>List of Users</returns>
         public static IEnumerable<UserInput> GetInputs(this IEnumerable<string> list)
         {
             IList<UserInput> result = new List<UserInput>();
-            if (!list.Any())
+            list = list?.Where(x => !string.IsNullOrWhiteSpace(x));
+            if (list?.Any() != true)
                 return result;
 
-            list = list.Where(x => !string.IsNullOrWhiteSpace(x));
+            var header = list.ElementAt(0).Split("\",").Select(x => x.Replace("\"", string.Empty));
             for (int i = 1; i < list.Count(); i++)
             {
-                AddInput(ref result, list.ElementAt(0), list.ElementAt(i));
+                AddInput(ref result, header, list.ElementAt(i));
             }
 
             return result;
         }
 
-        private static void AddInput(ref IList<UserInput> list, string header, string item)
+        /// <summary>
+        /// Add user into the list
+        /// </summary>
+        /// <param name="list">List of users</param>
+        /// <param name="headers">headers</param>
+        /// <param name="item">string user</param>
+        private static void AddInput(ref IList<UserInput> list, IEnumerable<string> headers, string item)
         {
-            var headers = header.Split("\",").Select(x => x.Replace("\"", string.Empty));
             var itens = item.Split("\",").Select(x => x.Replace("\"", string.Empty));
 
             var dic = new Dictionary<string, string>();
