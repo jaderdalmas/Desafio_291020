@@ -8,9 +8,9 @@ namespace API.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private IJuntosSomosMaisService _jsm;
+        private readonly IJuntosSomosMaisService _jsm;
 
-        private List<UserOutput> _list;
+        private readonly List<UserOutput> _list;
 
         public UserRepository(IJuntosSomosMaisService jsm)
         {
@@ -34,18 +34,18 @@ namespace API.Repository
                 Add(input);
         }
 
-        public bool Add(UserInput insumo) => Add(insumo?.GetOutput());
-        public bool Add(UserOutput insumo)
+        public bool Add(UserInput user) => Add(user?.GetOutput());
+        public bool Add(UserOutput user)
         {
-            if (insumo == null)
+            if (user == null)
                 return false;
 
-            _list.Add(insumo);
+            _list.Add(user);
 
             return true;
         }
 
-        public IEnumerable<UserOutput> GetInsumos(string region, EClassification classification)
+        public IEnumerable<UserOutput> GetUsers(string region, EClassification classification)
         {
             return _list.Where(x => x.Location?.Region == region
             && x.Type == classification.ToString());

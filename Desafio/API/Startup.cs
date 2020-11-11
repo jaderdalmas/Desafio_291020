@@ -1,3 +1,4 @@
+using Api.StartUp;
 using API.Repository;
 using API.Service;
 using Microsoft.AspNetCore.Builder;
@@ -8,28 +9,44 @@ using Microsoft.Extensions.Hosting;
 
 namespace API
 {
+    /// <summary>
+    /// Application Start Up
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Contructor
+        /// </summary>
+        /// <param name="configuration">Application Configuration</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Application Configuration
+        /// </summary>
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services">Service Collection</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddServices();
+            services.AddRepositories();
 
-            // Services
-            services.AddHttpClient<IJuntosSomosMaisService, JuntosSomosMaisService>();
-
-            // Repositories
-            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSwagger();
+            services.AddHealthCheck(Configuration);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline
+        /// </summary>
+        /// <param name="app">Application Builder</param>
+        /// <param name="env">WebHost Environment</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -37,12 +54,12 @@ namespace API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ConfigureSwagger();
+            app.ConfigureHealthCheck();
+
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

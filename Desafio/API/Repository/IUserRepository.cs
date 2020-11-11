@@ -3,28 +3,31 @@ using System.Collections.Generic;
 
 namespace API.Repository
 {
+    /// <summary>
+    /// User Repository Interface
+    /// </summary>
     public interface IUserRepository
     {
         /// <summary>
-        /// Get Insumos by region and classification
+        /// Get Users by region and classification
         /// </summary>
         /// <param name="region">Country Region</param>
         /// <param name="classification">Location Classification</param>
-        /// <returns>List of Insumos</returns>
-        IEnumerable<UserOutput> GetInsumos(string region, EClassification classification);
+        /// <returns>List of Users</returns>
+        IEnumerable<UserOutput> GetUsers(string region, EClassification classification);
 
         /// <summary>
-        /// Add Insumo
+        /// Add User
         /// </summary>
-        /// <param name="insumo">insumo</param>
+        /// <param name="user">user</param>
         /// <returns>true if ok</returns>
-        bool Add(UserInput insumo);
+        bool Add(UserInput user);
 
         /// <summary>
-        /// Add Insumo
+        /// Add User
         /// </summary>
-        /// <param name="insumo">insumo</param>
+        /// <param name="user">user</param>
         /// <returns>true if ok</returns>
-        bool Add(UserOutput insumo);
+        bool Add(UserOutput user);
     }
 }
