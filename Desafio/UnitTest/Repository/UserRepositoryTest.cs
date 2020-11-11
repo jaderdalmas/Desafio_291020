@@ -67,7 +67,7 @@ namespace UnitTest.Repository
         public void Get_Empty()
         {
             // Act
-            var result = Repo.GetInsumos(string.Empty, EClassification.LABORIOUS);
+            var result = Repo.GetUsers(string.Empty, EClassification.LABORIOUS);
 
             // Assert
             Assert.Empty(result);
@@ -77,7 +77,7 @@ namespace UnitTest.Repository
         public void Get_NotEmpty()
         {
             // Act
-            var result = Repo.GetInsumos("Norte", EClassification.LABORIOUS);
+            var result = Repo.GetUsers("Norte", EClassification.LABORIOUS);
 
             // Assert
             Assert.NotEmpty(result);
@@ -87,10 +87,10 @@ namespace UnitTest.Repository
         public void InsumoResponse_0_50()
         {
             // Arrange
-            var result = Repo.GetInsumos("Norte", EClassification.LABORIOUS);
+            var result = Repo.GetUsers("Norte", EClassification.LABORIOUS);
 
             // Act
-            var response = new InsumoResponse(result, 0, 50);
+            var response = new UserResponse(result, 0, 50);
 
             // Assert
             Assert.NotEmpty(response.Users);
@@ -101,10 +101,10 @@ namespace UnitTest.Repository
         public void InsumoResponse_10_50()
         {
             // Arrange
-            var result = Repo.GetInsumos("Norte", EClassification.LABORIOUS);
+            var result = Repo.GetUsers("Norte", EClassification.LABORIOUS);
 
             // Act
-            var response = new InsumoResponse(result, 10, 50);
+            var response = new UserResponse(result, 10, 50);
 
             // Assert
             Assert.NotEmpty(response.Users);
@@ -115,10 +115,10 @@ namespace UnitTest.Repository
         public void InsumoResponse_11_50()
         {
             // Arrange
-            var result = Repo.GetInsumos("Norte", EClassification.LABORIOUS);
+            var result = Repo.GetUsers("Norte", EClassification.LABORIOUS);
 
             // Act
-            var response = new InsumoResponse(result, 11, 50);
+            var response = new UserResponse(result, 11, 50);
 
             // Assert
             Assert.Empty(response.Users);
