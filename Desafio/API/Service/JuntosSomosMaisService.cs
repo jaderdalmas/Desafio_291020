@@ -1,5 +1,6 @@
 ﻿using API.Extension;
 using API.Models;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
@@ -12,16 +13,18 @@ namespace API.Service
     /// </summary>
     public class JuntosSomosMaisService : IJuntosSomosMaisService
     {
-        string Url => "https://storage.googleapis.com/juntossomosmais-code-challenge";
-
+        private string Url => _config["JSM:JsonCsv_Repos"];
+        private readonly IConfiguration _config;
         private readonly HttpClient _client;
 
         /// <summary>
         /// Constructor
         /// </summary>
+        /// <param name="configuration">App configuration</param>
         /// <param name="client">Client to make integration calls</param>
-        public JuntosSomosMaisService(HttpClient client)
+        public JuntosSomosMaisService(IConfiguration configuration, HttpClient client)
         {
+            _config = configuration;
             _client = client;
         }
 
