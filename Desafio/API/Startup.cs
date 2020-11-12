@@ -35,7 +35,7 @@ namespace API
         /// <param name="services">Service Collection</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy= null);
+            services.AddControllers();
             services.AddServices();
             services.AddRepositories();
 

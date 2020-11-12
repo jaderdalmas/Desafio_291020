@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace API.Models
 {
@@ -31,21 +32,25 @@ namespace API.Models
         /// <summary>
         /// Page Number
         /// </summary>
+        [JsonPropertyName("pagenumber")]
         public int PageNumber { get; set; }
 
         /// <summary>
         /// Page Size
         /// </summary>
+        [JsonPropertyName("pagesize")]
         public int PageSize { get; set; }
 
         /// <summary>
         /// Amount of users
         /// </summary>
+        [JsonPropertyName("totalcount")]
         public int TotalCount { get; set; }
 
         /// <summary>
         /// Pagged users
         /// </summary>
+        [JsonPropertyName("users")]
         public IEnumerable<UserOutput> Users { get; set; }
     }
 }

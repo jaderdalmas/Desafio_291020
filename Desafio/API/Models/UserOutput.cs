@@ -1,6 +1,7 @@
 ﻿using API.Extension;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace API.Models
 {
@@ -40,56 +41,67 @@ namespace API.Models
         /// <summary>
         /// Type
         /// </summary>
+        [JsonPropertyName("type")]
         public string Type { get; set; }
 
         /// <summary>
         /// Gender
         /// </summary>
+        [JsonPropertyName("gender")]
         public string Gender { get; set; }
 
         /// <summary>
         /// Name
         /// </summary>
+        [JsonPropertyName("name")]
         public Name Name { get; set; }
 
         /// <summary>
         /// Location
         /// </summary>
+        [JsonPropertyName("location")]
         public Location Location { get; set; }
 
         /// <summary>
         /// Email
         /// </summary>
+        [JsonPropertyName("email")]
         public string Email { get; set; }
 
         /// <summary>
         /// Birth Date
         /// </summary>
+        [JsonPropertyName("birthday")]
         public DateTime Birthday { get; set; }
 
         /// <summary>
         /// Register Date
         /// </summary>
+        [JsonPropertyName("registered")]
         public DateTime Registered { get; set; }
 
         /// <summary>
         /// Phone Numbers
         /// </summary>
+        [JsonPropertyName("telephonenumbers")]
         public IEnumerable<string> TelephoneNumbers { get; set; }
 
         /// <summary>
         /// Mobile Numbers
         /// </summary>
+        [JsonPropertyName("mobilenumbers")]
         public IEnumerable<string> MobileNumbers { get; set; }
 
         /// <summary>
         /// Picture
         /// </summary>
+        [JsonPropertyName("picture")]
         public Picture Picture { get; set; }
 
         /// <summary>
         /// Nationality (BR as default)
         /// </summary>
+        [JsonPropertyName("nationality")]
         public string Nationality => "BR";
     }
 }

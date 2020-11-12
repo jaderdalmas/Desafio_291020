@@ -33,14 +33,11 @@ namespace API.Controllers
         /// Get filtered users with pagination
         /// Data is on object, not on headers
         /// </summary>
-        /// <param name="region">Region Filter</param>
-        /// <param name="classification">Classification Filter</param>
-        /// <param name="pageNumber">Page Number</param>
-        /// <param name="pageSize">Page Size</param>
+        /// <param name="r">user request Filter</param>
         /// <returns>List of Users</returns>
-        [HttpGet]
+        [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(UserResponse))]
-        public UserResponse Get(string region, EClassification classification, int pageNumber = 0, int pageSize = 50) => new UserResponse(_userService.GetUsers(region, classification), pageNumber, pageSize);
+        public UserResponse Post(UserRequest r) => new UserResponse(_userService.GetUsers(r.Region, r.Classification), r.PageNumber, r.PageSize);
 
         /// <summary>
         /// Post a list of users
@@ -48,8 +45,8 @@ namespace API.Controllers
         /// </summary>
         /// <param name="users"></param>
         /// <returns>false on some error</returns>
-        [HttpPost]
+        [HttpPost("[action]")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(bool))]
-        public bool Post(IEnumerable<UserInput> users) => _userService.Add(users);
+        public bool Add(IEnumerable<UserInput> users) => _userService.Add(users);
     }
 }
