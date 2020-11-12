@@ -17,7 +17,7 @@ namespace API.Service
         private readonly IConfiguration _config;
         private readonly HttpClient _client;
 
-        private List<UserOutput> _users { get; set; }
+        private List<UserOutput> _users;
 
         public JuntosSomosMaisService(IConfiguration configuration, HttpClient client)
         {
@@ -29,6 +29,8 @@ namespace API.Service
 
         private void Initialize()
         {
+            _users = new List<UserOutput>();
+
             var tasks = new List<Task<IEnumerable<UserInput>>>
             {
                 GetJson(),
