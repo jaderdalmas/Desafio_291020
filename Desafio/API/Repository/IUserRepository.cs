@@ -21,13 +21,6 @@ namespace API.Repository
         /// </summary>
         /// <param name="user">user</param>
         /// <returns>true if ok</returns>
-        bool Add(UserInput user);
-
-        /// <summary>
-        /// Add User
-        /// </summary>
-        /// <param name="user">user</param>
-        /// <returns>true if ok</returns>
         bool Add(UserOutput user);
     }
 }

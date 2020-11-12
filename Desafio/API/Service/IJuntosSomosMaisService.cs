@@ -4,8 +4,16 @@ using System.Threading.Tasks;
 
 namespace API.Service
 {
+    /// <summary>
+    /// Juntos Somos Mais Integration Service
+    /// </summary>
     public interface IJuntosSomosMaisService
     {
+        /// <summary>
+        /// Users list
+        /// </summary>
+        List<UserOutput> Users { get; set; }
+
         /// <summary>
         /// Get Insumos from JSM as Json
         /// </summary>

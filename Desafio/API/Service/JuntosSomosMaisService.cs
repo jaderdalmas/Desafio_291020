@@ -2,36 +2,43 @@
 using API.Models;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace API.Service
 {
-    /// <summary>
-    /// Juntos Somos Mais Integration Service
-    /// </summary>
-    public class JuntosSomosMaisService : IJuntosSomosMaisService
+    internal class JuntosSomosMaisService : IJuntosSomosMaisService
     {
         private string Url => _config["JSM:JsonCsv_Repos"];
+
         private readonly IConfiguration _config;
         private readonly HttpClient _client;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="configuration">App configuration</param>
-        /// <param name="client">Client to make integration calls</param>
+        public List<UserOutput> Users { get; set; }
+
         public JuntosSomosMaisService(IConfiguration configuration, HttpClient client)
         {
             _config = configuration;
             _client = client;
+
+            Initialize();
         }
 
-        /// <summary>
-        /// Get Json Data
-        /// </summary>
-        /// <returns>list of users</returns>
+        private void Initialize()
+        {
+            var tasks = new List<Task<IEnumerable<UserInput>>>
+            {
+                GetJson(),
+                GetCSV()
+            };
+            Task.WaitAll(tasks.ToArray());
+
+            foreach (var input in tasks[0].Result.Concat(tasks[1].Result).AsParallel())
+                Users.Add(input.GetOutput());
+        }
+
         public async Task<IEnumerable<UserInput>> GetJson()
         {
             var response = await _client.GetAsync($"{Url}/input-backend.json").ConfigureAwait(false);
@@ -46,10 +53,6 @@ namespace API.Service
             return insumos.Results;
         }
 
-        /// <summary>
-        /// Get Csv Data
-        /// </summary>
-        /// <returns>list of users</returns>
         public async Task<IEnumerable<UserInput>> GetCSV()
         {
             var response = await _client.GetAsync($"{Url}/input-backend.csv").ConfigureAwait(false);
