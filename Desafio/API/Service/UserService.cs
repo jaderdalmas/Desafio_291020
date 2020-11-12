@@ -5,7 +5,8 @@ using System.Linq;
 
 namespace API.Service
 {
-    internal class UserService : IUserService
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepos;
 
@@ -27,4 +28,5 @@ namespace API.Service
 
         public IEnumerable<UserOutput> GetUsers(string region, EClassification classification) => _userRepos.GetUsers(region, classification);
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

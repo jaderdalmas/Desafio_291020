@@ -5,7 +5,8 @@ using System.Linq;
 
 namespace API.Repository
 {
-    internal class UserRepository : IUserRepository
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public class UserRepository : IUserRepository
     {
         private readonly IJuntosSomosMaisService _jsm;
 
@@ -30,4 +31,5 @@ namespace API.Repository
             && x.Type == classification.ToString());
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

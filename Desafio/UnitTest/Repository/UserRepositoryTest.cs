@@ -1,50 +1,25 @@
 ﻿using API.Models;
 using API.Repository;
-using API.Service;
 using System.Linq;
-using System.Net.Http;
 using Xunit;
 
 namespace UnitTest.Repository
 {
+    public static partial class IoC
+    {
+        public static IUserRepository UserRepos => new UserRepository(Service.IoC.JsmService);
+    }
+
     public class UserRepositoryTest
     {
-        private IUserRepository Repo => new UserRepository(new JuntosSomosMaisService(new HttpClient()));
-
-        [Fact]
-        public void Add_Input_Null()
-        {
-            // Arrange
-            UserInput insumo = null;
-
-            // Act
-            var result = Repo.Add(insumo);
-
-            // Assert
-            Assert.False(result);
-        }
-
-        [Fact]
-        public void Add_Input_Empty()
-        {
-            // Arrange
-            var insumo = new UserInput();
-
-            // Act
-            var result = Repo.Add(insumo);
-
-            // Assert
-            Assert.True(result);
-        }
-
         [Fact]
         public void Add_Output_Null()
         {
             // Arrange
-            UserOutput insumo = null;
+            UserOutput user = null;
 
             // Act
-            var result = Repo.Add(insumo);
+            var result = IoC.UserRepos.Add(user);
 
             // Assert
             Assert.False(result);
@@ -54,10 +29,10 @@ namespace UnitTest.Repository
         public void Add_Output_Empty()
         {
             // Arrange
-            var insumo = new UserOutput();
+            var user = new UserOutput();
 
             // Act
-            var result = Repo.Add(insumo);
+            var result = IoC.UserRepos.Add(user);
 
             // Assert
             Assert.True(result);
@@ -67,7 +42,7 @@ namespace UnitTest.Repository
         public void Get_Empty()
         {
             // Act
-            var result = Repo.GetUsers(string.Empty, EClassification.LABORIOUS);
+            var result = IoC.UserRepos.GetUsers(string.Empty, EClassification.LABORIOUS);
 
             // Assert
             Assert.Empty(result);
@@ -77,7 +52,7 @@ namespace UnitTest.Repository
         public void Get_NotEmpty()
         {
             // Act
-            var result = Repo.GetUsers("Norte", EClassification.LABORIOUS);
+            var result = IoC.UserRepos.GetUsers("Norte", EClassification.LABORIOUS);
 
             // Assert
             Assert.NotEmpty(result);
@@ -87,7 +62,7 @@ namespace UnitTest.Repository
         public void InsumoResponse_0_50()
         {
             // Arrange
-            var result = Repo.GetUsers("Norte", EClassification.LABORIOUS);
+            var result = IoC.UserRepos.GetUsers("Norte", EClassification.LABORIOUS);
 
             // Act
             var response = new UserResponse(result, 0, 50);
@@ -101,7 +76,7 @@ namespace UnitTest.Repository
         public void InsumoResponse_10_50()
         {
             // Arrange
-            var result = Repo.GetUsers("Norte", EClassification.LABORIOUS);
+            var result = IoC.UserRepos.GetUsers("Norte", EClassification.LABORIOUS);
 
             // Act
             var response = new UserResponse(result, 10, 50);
@@ -115,7 +90,7 @@ namespace UnitTest.Repository
         public void InsumoResponse_11_50()
         {
             // Arrange
-            var result = Repo.GetUsers("Norte", EClassification.LABORIOUS);
+            var result = IoC.UserRepos.GetUsers("Norte", EClassification.LABORIOUS);
 
             // Act
             var response = new UserResponse(result, 11, 50);

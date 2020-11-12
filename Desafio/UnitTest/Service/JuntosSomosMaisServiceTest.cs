@@ -6,15 +6,18 @@ using Xunit;
 
 namespace UnitTest.Service
 {
+    public static partial class IoC
+    {
+        public static IJuntosSomosMaisService JsmService => new JuntosSomosMaisService(null, new HttpClient());
+    }
+
     public class JuntosSomosMaisServiceTest
     {
-        private IJuntosSomosMaisService Service => new JuntosSomosMaisService(new HttpClient());
-
         [Fact]
         public async Task GetJson()
         {
             // Act
-            var result = await Service.GetJson().ConfigureAwait(false);
+            var result = await IoC.JsmService.GetJson().ConfigureAwait(false);
 
             // Assert
             Assert.NotEmpty(result);
@@ -25,7 +28,7 @@ namespace UnitTest.Service
         public async Task GetCSV()
         {
             // Act
-            var result = await Service.GetCSV().ConfigureAwait(false);
+            var result = await IoC.JsmService.GetCSV().ConfigureAwait(false);
 
             // Assert
             Assert.NotEmpty(result);

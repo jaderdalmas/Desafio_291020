@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace API.Service
 {
-    internal class JuntosSomosMaisService : IJuntosSomosMaisService
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public class JuntosSomosMaisService : IJuntosSomosMaisService
     {
         private string Url => _config["JSM:JsonCsv_Repos"];
 
@@ -66,4 +67,5 @@ namespace API.Service
             return result.Split("\r\n").GetInputs();
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
