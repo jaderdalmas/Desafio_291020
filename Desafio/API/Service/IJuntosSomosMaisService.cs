@@ -10,20 +10,26 @@ namespace API.Service
     public interface IJuntosSomosMaisService
     {
         /// <summary>
-        /// Users list
+        /// Get Users
         /// </summary>
-        List<UserOutput> Users { get; set; }
+        IEnumerable<UserOutput> GetAll();
 
         /// <summary>
-        /// Get Insumos from JSM as Json
+        /// Add User
         /// </summary>
-        /// <returns>List of Insumos</returns>
+        /// <param name="user">User to be added</param>
+        void Add(UserOutput user);
+
+        /// <summary>
+        /// Get Users from JSM as Json
+        /// </summary>
+        /// <returns>List of Users</returns>
         Task<IEnumerable<UserInput>> GetJson();
 
         /// <summary>
-        /// Get Insumos from JSM as Csv
+        /// Get Users from JSM as Csv
         /// </summary>
-        /// <returns>List of Insumos</returns>
+        /// <returns>List of Users</returns>
         Task<IEnumerable<UserInput>> GetCSV();
     }
 }

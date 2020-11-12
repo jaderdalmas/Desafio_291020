@@ -1,5 +1,7 @@
 ﻿using API.Models;
 using API.Service;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,10 +10,13 @@ namespace API.Repository
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class UserRepository : IUserRepository
     {
+        private readonly ILogger _logger;
         private readonly IJuntosSomosMaisService _jsm;
 
-        public UserRepository(IJuntosSomosMaisService jsm)
+        public UserRepository(ILogger<UserRepository> logger, IJuntosSomosMaisService jsm)
         {
+            _logger = logger;
+
             _jsm = jsm;
         }
 
@@ -20,15 +25,23 @@ namespace API.Repository
             if (user == null)
                 return false;
 
-            _jsm.Users.Add(user);
+            try
+            {
+                _jsm.Add(user);
+                return true;
+            }
+            catch (Exception ex) {
+                _logger.LogError(ex, "Cannot add user on JSM", user);
+            }
 
-            return true;
+            return false;
         }
 
         public IEnumerable<UserOutput> GetUsers(string region, EClassification classification)
         {
-            return _jsm.Users.Where(x => x.Location?.Region == region
-            && x.Type == classification.ToString());
+            var result = _jsm.GetAll();
+
+            return result.Where(x => x.Location?.Region == region && x.Type == classification.ToString());
         }
     }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

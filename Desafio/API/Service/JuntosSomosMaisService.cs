@@ -17,7 +17,7 @@ namespace API.Service
         private readonly IConfiguration _config;
         private readonly HttpClient _client;
 
-        public List<UserOutput> Users { get; set; }
+        private List<UserOutput> _users { get; set; }
 
         public JuntosSomosMaisService(IConfiguration configuration, HttpClient client)
         {
@@ -37,8 +37,11 @@ namespace API.Service
             Task.WaitAll(tasks.ToArray());
 
             foreach (var input in tasks[0].Result.Concat(tasks[1].Result).AsParallel())
-                Users.Add(input.GetOutput());
+                _users.Add(input.GetOutput());
         }
+
+        public IEnumerable<UserOutput> GetAll() => _users;
+        public void Add(UserOutput user) => _users.Add(user);
 
         public async Task<IEnumerable<UserInput>> GetJson()
         {
