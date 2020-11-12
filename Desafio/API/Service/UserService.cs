@@ -17,6 +17,9 @@ namespace API.Service
 
         public bool Add(IEnumerable<UserInput> users)
         {
+            if (users?.Any() != true)
+                return false;
+
             var result = new List<bool>();
             foreach (var user in users.AsParallel())
                 result.Add(Add(user?.GetOutput()));
