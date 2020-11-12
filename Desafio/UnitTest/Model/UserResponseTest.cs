@@ -15,7 +15,7 @@ namespace UnitTest.Model
                 Type = EClassification.LABORIOUS.ToString(),
                 Location = new Location() { Region = string.Empty }
             };
-            var list = new List<UserOutput>() { user }; 
+            var list = new List<UserOutput>() { user };
 
             // Act
             var response = new UserResponse(list, 0, 50);

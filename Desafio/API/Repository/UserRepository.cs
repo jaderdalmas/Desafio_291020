@@ -30,7 +30,8 @@ namespace API.Repository
                 _jsm.Add(user);
                 return true;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 _logger.LogError(ex, "Cannot add user on JSM", user);
             }
 

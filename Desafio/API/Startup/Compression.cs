@@ -25,7 +25,7 @@ namespace Api.StartUp
                 options.Providers.Add<GzipCompressionProvider>();
                 options.Providers.Add<BrotliCompressionProvider>();
                 options.EnableForHttps = true;
-            }); 
+            });
         }
 
         /// <summary>

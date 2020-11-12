@@ -44,7 +44,7 @@ namespace UnitTest.Service
         {
             // Arrange
             var repos = new Mock<IUserRepository>();
-            repos.Setup(m => m.Add(It.IsAny<UserOutput>())).Returns(true); 
+            repos.Setup(m => m.Add(It.IsAny<UserOutput>())).Returns(true);
             var service = new UserService(repos.Object);
 
             var users = new List<UserInput>() { new UserInput() };
