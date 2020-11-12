@@ -11,6 +11,11 @@ namespace API.Models
         /// <summary>
         /// Constructor
         /// </summary>
+        public UserResponse() { }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         /// <param name="list">list of users</param>
         /// <param name="number">page number</param>
         /// <param name="size">page size</param>
