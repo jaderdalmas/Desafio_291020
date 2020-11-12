@@ -3,11 +3,23 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace API.Service
 {
+    /// <summary>
+    /// Inject Services 
+    /// </summary>
     [ExcludeFromCodeCoverage]
     public static class IoC
     {
+        /// <summary>
+        /// Add Services in the service collection
+        /// </summary>
+        /// <param name="services">service collection</param>
+        /// <returns>service collection</returns>
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
+            // Services
+            services.AddSingleton<IUserService, UserService>();
+
+            // External Services
             services.AddHttpClient<IJuntosSomosMaisService, JuntosSomosMaisService>();
 
             return services;
