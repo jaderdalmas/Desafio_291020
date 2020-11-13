@@ -23,11 +23,9 @@ namespace IntegrationTest.Controller
         {
             // Arrange
             var client = _factory.CreateClient();
-            var request = new UserRequest();
-            Assert.False(request.IsValid());
 
             // Act
-            var response = await client.PostAsync("Users", request.AsContent());
+            var response = await client.GetAsync("Users");
 
             // Assert
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -38,15 +36,9 @@ namespace IntegrationTest.Controller
         {
             // Arrange
             var client = _factory.CreateClient();
-            var request = new UserRequest()
-            {
-                Classification = EClassification.LABORIOUS,
-                Region = "Norte"
-            };
-            Assert.True(request.IsValid());
 
             // Act
-            var response = await client.PostAsync("Users", request.AsContent());
+            var response = await client.GetAsync("Users?region=Norte&classification=2");
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -65,16 +57,9 @@ namespace IntegrationTest.Controller
         {
             // Arrange
             var client = _factory.CreateClient();
-            var request = new UserRequest()
-            {
-                Classification = EClassification.LABORIOUS,
-                Region = "Norte",
-                PageNumber = 999
-            };
-            Assert.True(request.IsValid());
 
             // Act
-            var response = await client.PostAsync("Users", request.AsContent());
+            var response = await client.GetAsync("Users?region=Norte&classification=2&pageNumber=999");
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -96,7 +81,7 @@ namespace IntegrationTest.Controller
             List<UserInput> request = null;
 
             // Act
-            var response = await client.PostAsync("Users/Add", request.AsContent());
+            var response = await client.PostAsync("Users", request.AsContent());
 
             // Assert
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -110,7 +95,7 @@ namespace IntegrationTest.Controller
             var request = new List<UserInput>();
 
             // Act
-            var response = await client.PostAsync("Users/Add", request.AsContent());
+            var response = await client.PostAsync("Users", request.AsContent());
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -132,7 +117,7 @@ namespace IntegrationTest.Controller
             var request = new List<UserInput>() { new UserInput() };
 
             // Act
-            var response = await client.PostAsync("Users/Add", request.AsContent());
+            var response = await client.PostAsync("Users", request.AsContent());
 
             // Assert
             response.EnsureSuccessStatusCode();
