@@ -21,7 +21,7 @@ namespace UnitTest.Service
             handler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>()).ReturnsAsync(response);
 
             var config = new Mock<IConfiguration>();
-            config.Setup(x => x["JSM:JsonCsv_Repos"]).Returns("https://storage.googleapis.com/juntossomosmais-code-challenge");
+            config.Setup(x => x["JSM:JsonCsv_Repos"]).Returns("http://localhost");
             var service = new JuntosSomosMaisService(config.Object, new HttpClient(handler.Object));
 
             // Act
@@ -40,7 +40,7 @@ namespace UnitTest.Service
             handler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>()).ReturnsAsync(response);
 
             var config = new Mock<IConfiguration>();
-            config.Setup(x => x["JSM:JsonCsv_Repos"]).Returns("https://storage.googleapis.com/juntossomosmais-code-challenge");
+            config.Setup(x => x["JSM:JsonCsv_Repos"]).Returns("http://localhost");
             var service = new JuntosSomosMaisService(config.Object, new HttpClient(handler.Object));
 
             // Act

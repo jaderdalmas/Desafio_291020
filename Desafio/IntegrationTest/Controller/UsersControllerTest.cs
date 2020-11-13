@@ -9,7 +9,7 @@ using Xunit;
 
 namespace IntegrationTest.Controller
 {
-    public class UsersControllerTest : IClassFixture<WebApplicationFactory<Startup>>
+    public class UsersControllerTest : IClassFixture<TestApplicationFactory<Startup>>
     {
         private readonly WebApplicationFactory<Startup> _factory;
 
@@ -19,7 +19,7 @@ namespace IntegrationTest.Controller
         }
 
         [Fact]
-        public async Task GetNoUsers()
+        public async Task GetUsers_BadRequest()
         {
             // Arrange
             var client = _factory.CreateClient();
