@@ -5,4 +5,4 @@ Juntos Somos Mais --> https://github.com/juntossomosmais/code-challenge
 
 # Saúde da Aplicação --> /health
 
-# Test --> Integração + Unitário (xUnit)
+# Teste --> Integração + Unitário (xUnit)
