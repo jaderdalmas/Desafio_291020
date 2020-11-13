@@ -2,6 +2,7 @@
 using API.Service;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace API.Controllers
@@ -26,22 +27,31 @@ namespace API.Controllers
 
         /// <summary>
         /// Get filtered users with pagination
-        /// Data is on object, not on headers
+        /// Response data is on object, not on headers
         /// </summary>
-        /// <param name="r">user request Filter</param>
+        /// <param name="region">region</param>
+        /// <param name="classification">classification</param>
+        /// <param name="pageNumber">page Number</param>
+        /// <param name="pageSize">page Size</param>
         /// <returns>List of Users</returns>
-        [HttpPost]
+        [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(UserResponse))]
-        public UserResponse Post(UserRequest r) => new UserResponse(_userService.GetUsers(r.Region, r.Classification), r.PageNumber, r.PageSize);
+        public UserResponse Get(
+            [Required, MinLength(1)] string region,
+            EClassification classification,
+            [Range(0, int.MaxValue)] int pageNumber = 0,
+            [Range(0, 1000)] int pageSize = 50)
+        {
+            return new UserResponse(_userService.GetUsers(region, classification), pageNumber, pageSize);
+        }
 
         /// <summary>
         /// Post a list of users
-        /// Data is on object, not on headers
         /// </summary>
         /// <param name="users"></param>
         /// <returns>false on some error</returns>
-        [HttpPost("[action]")]
+        [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(bool))]
-        public bool Add(IEnumerable<UserInput> users) => _userService.Add(users);
+        public bool Post(IEnumerable<UserInput> users) => _userService.Add(users);
     }
 }
