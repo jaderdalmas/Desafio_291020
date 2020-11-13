@@ -1,6 +1,5 @@
 ﻿using API.Service;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Moq;
 using System.Linq;
 using System.Net.Http;
@@ -14,12 +13,10 @@ namespace IntegrationTest.Service
         [Fact]
         public async Task GetJson()
         {
-            var log = new LoggerFactory().CreateLogger<JuntosSomosMaisService>();
-
             // Arrange
             var config = new Mock<IConfiguration>();
             config.Setup(x => x["JSM:JsonCsv_Repos"]).Returns("https://storage.googleapis.com/juntossomosmais-code-challenge");
-            var service = new JuntosSomosMaisService(config.Object, log, new HttpClient());
+            var service = new JuntosSomosMaisService(config.Object, new HttpClient());
 
             // Act
             var result = await service.GetJson().ConfigureAwait(false);
@@ -32,12 +29,10 @@ namespace IntegrationTest.Service
         [Fact]
         public async Task GetCSV()
         {
-            var log = new LoggerFactory().CreateLogger<JuntosSomosMaisService>();
-
             // Arrange
             var config = new Mock<IConfiguration>();
             config.Setup(x => x["JSM:JsonCsv_Repos"]).Returns("https://storage.googleapis.com/juntossomosmais-code-challenge");
-            var service = new JuntosSomosMaisService(config.Object, log, new HttpClient());
+            var service = new JuntosSomosMaisService(config.Object, new HttpClient());
 
             // Act
             var result = await service.GetCSV().ConfigureAwait(false);

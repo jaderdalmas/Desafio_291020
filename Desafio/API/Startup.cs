@@ -1,5 +1,5 @@
+using Api.Filter;
 using Api.StartUp;
-using API.Repository;
 using API.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,7 +34,10 @@ namespace API
         /// <param name="services">Service Collection</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<CustomExceptionsFilter>();
+            });
             services.AddExternalServices();
             services.AddServices();
 

@@ -17,7 +17,10 @@ namespace Api.StartUp
     /// </summary>
     public static class HealthCheck
     {
-        private const string URL_CHECK = "/health";
+        /// <summary>
+        /// Url
+        /// </summary>
+        public const string URL = "/health";
 
         /// <summary>
         /// Register
@@ -35,7 +38,7 @@ namespace Api.StartUp
         /// <param name="app">Application</param>
         public static void ConfigureHealthCheck(this IApplicationBuilder app)
         {
-            app.UseHealthChecks(URL_CHECK, new HealthCheckOptions()
+            app.UseHealthChecks(URL, new HealthCheckOptions()
             {
                 ResponseWriter = async (context, report) =>
                 {

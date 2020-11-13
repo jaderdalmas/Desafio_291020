@@ -2,10 +2,7 @@
 using API.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
@@ -19,12 +16,10 @@ namespace API.Service
         private string Url => _config["JSM:JsonCsv_Repos"];
 
         private readonly IConfiguration _config;
-        private readonly ILogger _logger;
         private readonly HttpClient _client;
 
-        public JuntosSomosMaisService(IConfiguration configuration, ILogger<JuntosSomosMaisService> logger, HttpClient client)
+        public JuntosSomosMaisService(IConfiguration configuration, HttpClient client)
         {
-            _logger = logger;
             _config = configuration;
             _client = client;
         }
@@ -64,17 +59,7 @@ namespace API.Service
 
         private async Task<string> Get(string url)
         {
-            HttpResponseMessage response;
-            try
-            {
-                response = await _client.GetAsync($"{Url}/{url}").ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Cannot access JSM");
-                return string.Empty;
-            }
-
+            var response = await _client.GetAsync($"{Url}/{url}").ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
                 return string.Empty;
 
