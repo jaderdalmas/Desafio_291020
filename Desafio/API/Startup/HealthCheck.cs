@@ -1,7 +1,17 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using API.Service;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-//using Newtonsoft.Json;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using System;
+using System.Linq;
+using System.Net.Mime;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 
 namespace Api.StartUp
 {
@@ -10,16 +20,16 @@ namespace Api.StartUp
     /// </summary>
     public static class HealthCheck
     {
-        private const string URL_CHECK = "/health-check";
+        private const string URL_CHECK = "/health";
 
         /// <summary>
         /// Register
         /// </summary>
         /// <param name="services">Services</param>
-        /// <param name="configuration">Configuration</param>
-        public static void AddHealthCheck(this IServiceCollection services, IConfiguration configuration)
+        public static void AddHealthCheck(this IServiceCollection services)
         {
-            services.AddHealthChecks();
+            services.AddHealthChecks()
+                .AddCheck<IJuntosSomosMaisService>("JSM");
         }
 
         /// <summary>
@@ -28,26 +38,24 @@ namespace Api.StartUp
         /// <param name="app">Application</param>
         public static void ConfigureHealthCheck(this IApplicationBuilder app)
         {
-            //app.UseHealthChecks(URL_CHECK,
-            //    new HealthCheckOptions()
-            //    {
-            //        ResponseWriter = async (context, report) =>
-            //        {
-            //            var result = JsonConvert.SerializeObject(
-            //                new
-            //                {
-            //                    statusApplication = report.Status.ToString(),
-            //                    healthChecks = report.Entries.Select(e => new
-            //                    {
-            //                        check = e.Key,
-            //                        status = Enum.GetName(typeof(HealthStatus), e.Value.Status)
-            //                    })
-            //                }, Formatting.Indented);
-            //            context.Response.ContentType = MediaTypeNames.Application.Json;
-            //            await context.Response.WriteAsync(result);
-            //        }
-            //    }
-            //);
+            app.UseHealthChecks(URL_CHECK, new HealthCheckOptions()
+            {
+                ResponseWriter = async (context, report) =>
+                {
+                    var result = JsonSerializer.Serialize(new
+                    {
+                        statusApplication = report.Status.ToString(),
+                        healthChecks = report.Entries.Select(e => new
+                        {
+                            check = e.Key,
+                            status = Enum.GetName(typeof(HealthStatus), e.Value.Status),
+                            description = (e.Value.Status != HealthStatus.Healthy) ? e.Value.Description : string.Empty
+                        })
+                    }, new JsonSerializerOptions() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping, WriteIndented = true });
+                    context.Response.ContentType = MediaTypeNames.Application.Json;
+                    await context.Response.WriteAsync(result).ConfigureAwait(false);
+                }
+            });
         }
     }
 }

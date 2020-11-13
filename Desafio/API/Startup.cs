@@ -40,7 +40,7 @@ namespace API
             services.AddRepositories();
 
             services.AddCompression();
-            services.AddHealthCheck(Configuration);
+            services.AddHealthCheck();
             services.AddSwagger();
         }
 
@@ -66,6 +66,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                //endpoints.MapHealthChecks("/health");
             });
         }
     }

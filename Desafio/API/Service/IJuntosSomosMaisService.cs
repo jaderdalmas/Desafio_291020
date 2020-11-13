@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,7 +8,7 @@ namespace API.Service
     /// <summary>
     /// Juntos Somos Mais Integration Service
     /// </summary>
-    public interface IJuntosSomosMaisService
+    public interface IJuntosSomosMaisService : IHealthCheck
     {
         /// <summary>
         /// Get Users
