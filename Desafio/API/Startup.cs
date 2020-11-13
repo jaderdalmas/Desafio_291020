@@ -35,8 +35,8 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddExternalServices();
             services.AddServices();
-            services.AddRepositories();
 
             services.AddCompression();
             services.AddHealthCheck();

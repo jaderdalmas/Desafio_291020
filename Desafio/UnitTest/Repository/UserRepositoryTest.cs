@@ -1,23 +1,19 @@
 ﻿using API.Models;
 using API.Repository;
 using API.Service;
-using Microsoft.Extensions.Logging;
 using Moq;
-using System.Collections.Generic;
 using Xunit;
 
 namespace UnitTest.Repository
 {
     public class UserRepositoryTest
     {
-        ILogger<UserRepository> Log => new Mock<ILogger<UserRepository>>().Object;
-
         [Fact]
         public void Add_Output_Null()
         {
             // Arrange
             var jsm = new Mock<IJuntosSomosMaisService>();
-            var repos = new UserRepository(Log, jsm.Object);
+            var repos = new UserMemory(jsm.Object);
             UserOutput user = null;
 
             // Act
@@ -32,7 +28,7 @@ namespace UnitTest.Repository
         {
             // Arrange
             var jsm = new Mock<IJuntosSomosMaisService>();
-            var repos = new UserRepository(Log, jsm.Object);
+            var repos = new UserMemory(jsm.Object);
             var user = new UserOutput();
 
             // Act
@@ -47,7 +43,7 @@ namespace UnitTest.Repository
         {
             // Arrange
             var jsm = new Mock<IJuntosSomosMaisService>();
-            var repos = new UserRepository(Log, jsm.Object);
+            var repos = new UserMemory(jsm.Object);
 
             // Act
             var result = repos.GetUsers("Outro", EClassification.LABORIOUS);
@@ -67,8 +63,8 @@ namespace UnitTest.Repository
             };
 
             var jsm = new Mock<IJuntosSomosMaisService>();
-            jsm.Setup(m => m.GetAll()).Returns(new List<UserOutput>() { user });
-            var repos = new UserRepository(Log, jsm.Object);
+            var repos = new UserMemory(jsm.Object);
+            repos.Add(user);
 
             // Act
             var result = repos.GetUsers(string.Empty, EClassification.LABORIOUS);
