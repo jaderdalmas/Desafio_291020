@@ -1,7 +1,6 @@
 ﻿using API.Models;
 using API.Service;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Net;
 
@@ -14,18 +13,14 @@ namespace API.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly ILogger<UsersController> _logger;
         private readonly IUserService _userService;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="logger">Log</param>
         /// <param name="userService">User Service</param>
-        public UsersController(ILogger<UsersController> logger, IUserService userService)
+        public UsersController(IUserService userService)
         {
-            _logger = logger;
-
             _userService = userService;
         }
 

@@ -40,7 +40,15 @@ namespace API.Repository
 
         public IEnumerable<UserOutput> GetUsers(string region, EClassification classification)
         {
-            var result = _jsm.GetAll();
+            IEnumerable<UserOutput> result = new List<UserOutput>();
+            try
+            {
+                result = _jsm.GetAll();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Cannot get user on JSM");
+            }
 
             return result.Where(x => x.Location?.Region == region && x.Type == classification.ToString());
         }
