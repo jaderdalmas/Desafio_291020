@@ -16,7 +16,10 @@ namespace API.Repository
         /// <returns>service collection</returns>
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IUserMemory, UserMemory>();
+            services.AddHostedService(service => service.GetService<IUserMemory>());
+
+            services.AddSingleton<IUserRepository>(resolver => resolver.GetRequiredService<IUserMemory>());
 
             return services;
         }
