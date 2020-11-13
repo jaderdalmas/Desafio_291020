@@ -1,7 +1,7 @@
 ﻿using API;
 using API.Extension;
 using API.Models;
-using Microsoft.AspNetCore.Mvc.Testing;
+using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -86,6 +86,64 @@ namespace IntegrationTest.Controller
 
             var userResponse = JsonSerializer.Deserialize<UserResponse>(result);
             Assert.Empty(userResponse.Users);
+        }
+
+        [Fact]
+        public async Task PostUsers_BadRequest()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+            List<UserInput> request = null;
+
+            // Act
+            var response = await client.PostAsync("Users/Add", request.AsContent());
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task PostUsers_False()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+            var request = new List<UserInput>();
+
+            // Act
+            var response = await client.PostAsync("Users/Add", request.AsContent());
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Equal("application/json; charset=utf-8",
+                response.Content.Headers.ContentType.ToString());
+
+            var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            Assert.NotEmpty(result);
+
+            var objResult = JsonSerializer.Deserialize<bool>(result);
+            Assert.False(objResult);
+        }
+
+        [Fact]
+        public async Task PostUsers_True()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+            var request = new List<UserInput>() { new UserInput() };
+
+            // Act
+            var response = await client.PostAsync("Users/Add", request.AsContent());
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Equal("application/json; charset=utf-8",
+                response.Content.Headers.ContentType.ToString());
+
+            var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            Assert.NotEmpty(result);
+
+            var objResult = JsonSerializer.Deserialize<bool>(result);
+            Assert.True(objResult);
         }
     }
 }
