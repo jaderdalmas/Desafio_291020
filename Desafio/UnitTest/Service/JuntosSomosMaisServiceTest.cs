@@ -1,5 +1,6 @@
 ﻿using API.Service;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Moq.Protected;
 using System.Net;
@@ -15,6 +16,8 @@ namespace UnitTest.Service
         [Fact]
         public async Task GetJson_Empty()
         {
+            var log = new LoggerFactory().CreateLogger<JuntosSomosMaisService>();
+
             // Arrange
             var response = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(string.Empty) };
             var handler = new Mock<HttpMessageHandler>();
@@ -22,7 +25,7 @@ namespace UnitTest.Service
 
             var config = new Mock<IConfiguration>();
             config.Setup(x => x["JSM:JsonCsv_Repos"]).Returns("http://localhost");
-            var service = new JuntosSomosMaisService(config.Object, new HttpClient(handler.Object));
+            var service = new JuntosSomosMaisService(config.Object, log, new HttpClient(handler.Object));
 
             // Act
             var result = await service.GetJson().ConfigureAwait(false);
@@ -34,6 +37,8 @@ namespace UnitTest.Service
         [Fact]
         public async Task GetCSV_Empty()
         {
+            var log = new LoggerFactory().CreateLogger<JuntosSomosMaisService>();
+
             // Arrange
             var response = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(string.Empty) };
             var handler = new Mock<HttpMessageHandler>();
@@ -41,7 +46,7 @@ namespace UnitTest.Service
 
             var config = new Mock<IConfiguration>();
             config.Setup(x => x["JSM:JsonCsv_Repos"]).Returns("http://localhost");
-            var service = new JuntosSomosMaisService(config.Object, new HttpClient(handler.Object));
+            var service = new JuntosSomosMaisService(config.Object, log, new HttpClient(handler.Object));
 
             // Act
             var result = await service.GetCSV().ConfigureAwait(false);

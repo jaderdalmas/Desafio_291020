@@ -11,9 +11,9 @@ namespace IntegrationTest.Controller
 {
     public class UsersControllerTest : IClassFixture<TestApplicationFactory<Startup>>
     {
-        private readonly WebApplicationFactory<Startup> _factory;
+        private readonly TestApplicationFactory<Startup> _factory;
 
-        public UsersControllerTest(WebApplicationFactory<Startup> factory)
+        public UsersControllerTest(TestApplicationFactory<Startup> factory)
         {
             _factory = factory;
         }
