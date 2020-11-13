@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,17 +11,6 @@ namespace API.Service
     /// </summary>
     public interface IJuntosSomosMaisService : IHealthCheck
     {
-        /// <summary>
-        /// Get Users
-        /// </summary>
-        IEnumerable<UserOutput> GetAll();
-
-        /// <summary>
-        /// Add User
-        /// </summary>
-        /// <param name="user">User to be added</param>
-        void Add(UserOutput user);
-
         /// <summary>
         /// Get Users from JSM as Json
         /// </summary>

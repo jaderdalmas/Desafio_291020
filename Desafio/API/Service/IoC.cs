@@ -19,6 +19,16 @@ namespace API.Service
             // Services
             services.AddSingleton<IUserService, UserService>();
 
+            return services;
+        }
+
+        /// <summary>
+        /// Add External Services in the service collection
+        /// </summary>
+        /// <param name="services">service collection</param>
+        /// <returns>service collection</returns>
+        public static IServiceCollection AddExternalServices(this IServiceCollection services)
+        {
             // External Services
             services.AddHttpClient<IJuntosSomosMaisService, JuntosSomosMaisService>();
 

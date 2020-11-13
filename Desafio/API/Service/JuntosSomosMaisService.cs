@@ -22,30 +22,11 @@ namespace API.Service
         private readonly ILogger _logger;
         private readonly HttpClient _client;
 
-        private List<UserOutput> _users;
-
         public JuntosSomosMaisService(IConfiguration configuration, ILogger<JuntosSomosMaisService> logger, HttpClient client)
         {
             _logger = logger;
             _config = configuration;
             _client = client;
-
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            _users = new List<UserOutput>();
-
-            var tasks = new List<Task<IEnumerable<UserInput>>>
-            {
-                GetJson(),
-                GetCSV()
-            };
-            Task.WaitAll(tasks.ToArray());
-
-            foreach (var input in tasks[0].Result.Concat(tasks[1].Result).AsParallel())
-                _users.Add(input.GetOutput());
         }
 
         public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
@@ -61,9 +42,6 @@ namespace API.Service
 
             return HealthCheckResult.Healthy(nameof(JuntosSomosMaisService));
         }
-
-        public IEnumerable<UserOutput> GetAll() => _users;
-        public void Add(UserOutput user) => _users.Add(user);
 
         public async Task<IEnumerable<UserInput>> GetJson()
         {
