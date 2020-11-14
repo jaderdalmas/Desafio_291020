@@ -1,11 +1,14 @@
 using Api.Filter;
 using Api.StartUp;
+using API.Helpers;
 using API.Service;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Net;
 
 namespace API
 {
@@ -38,6 +41,9 @@ namespace API
             {
                 options.Filters.Add<CustomExceptionsFilter>();
             });
+            services.AddAuthentication(AuthenticationSchemes.Basic.ToString())
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>(AuthenticationSchemes.Basic.ToString(), null);
+
             services.AddExternalServices();
             services.AddServices();
 
@@ -64,6 +70,7 @@ namespace API
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

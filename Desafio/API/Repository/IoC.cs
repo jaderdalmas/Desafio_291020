@@ -19,7 +19,8 @@ namespace API.Repository
             services.AddSingleton<IUserMemory, UserMemory>();
             services.AddHostedService(service => service.GetService<IUserMemory>());
 
-            services.AddSingleton<IUserRepository>(resolver => resolver.GetRequiredService<IUserMemory>());
+            services.AddScoped<IUserRepository>(resolver => resolver.GetRequiredService<IUserMemory>());
+            services.AddScoped<IAuthRepository, AuthRepository>();
 
             return services;
         }

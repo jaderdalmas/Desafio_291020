@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace API.Service
 {
@@ -8,6 +9,14 @@ namespace API.Service
     /// </summary>
     public interface IUserService
     {
+        /// <summary>
+        /// Authenticate user
+        /// </summary>
+        /// <param name="name">name</param>
+        /// <param name="password">password</param>
+        /// <returns>Authenticated user</returns>
+        Task<Authenticate> Authenticate(string name, string password);
+
         /// <summary>
         /// Get Users by region and classification
         /// </summary>

@@ -22,7 +22,7 @@ namespace API.Service
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             // Services
-            services.AddSingleton<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }
