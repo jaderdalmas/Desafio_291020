@@ -14,7 +14,7 @@ namespace UnitTest.Service
         {
             // Arrange
             var repos = new Mock<IUserRepository>();
-            var service = new UserService(repos.Object);
+            var service = new UserService(null, repos.Object);
             List<UserInput> users = null;
 
             // Act
@@ -29,7 +29,7 @@ namespace UnitTest.Service
         {
             // Arrange
             var repos = new Mock<IUserRepository>();
-            var service = new UserService(repos.Object);
+            var service = new UserService(null, repos.Object);
             var users = new List<UserInput>();
 
             // Act
@@ -45,7 +45,7 @@ namespace UnitTest.Service
             // Arrange
             var repos = new Mock<IUserRepository>();
             repos.Setup(m => m.Add(It.IsAny<UserOutput>())).Returns(true);
-            var service = new UserService(repos.Object);
+            var service = new UserService(null, repos.Object);
 
             var users = new List<UserInput>() { new UserInput() };
 
@@ -61,7 +61,7 @@ namespace UnitTest.Service
         {
             // Arrange
             var repos = new Mock<IUserRepository>();
-            var service = new UserService(repos.Object);
+            var service = new UserService(null, repos.Object);
             UserOutput user = null;
 
             // Act
@@ -76,7 +76,7 @@ namespace UnitTest.Service
         {
             // Arrange
             var repos = new Mock<IUserRepository>();
-            var service = new UserService(repos.Object);
+            var service = new UserService(null, repos.Object);
             repos.Setup(m => m.Add(It.IsAny<UserOutput>())).Returns(true);
             var user = new UserOutput();
 
@@ -92,7 +92,7 @@ namespace UnitTest.Service
         {
             // Arrange
             var repos = new Mock<IUserRepository>();
-            var service = new UserService(repos.Object);
+            var service = new UserService(null, repos.Object);
 
             // Act
             var result = service.GetUsers("Outro", EClassification.LABORIOUS);
@@ -113,7 +113,7 @@ namespace UnitTest.Service
 
             var repos = new Mock<IUserRepository>();
             repos.Setup(m => m.GetUsers(It.IsAny<string>(), It.IsAny<EClassification>())).Returns(new List<UserOutput>() { user });
-            var service = new UserService(repos.Object);
+            var service = new UserService(null, repos.Object);
 
             // Act
             var result = service.GetUsers(string.Empty, EClassification.LABORIOUS);

@@ -23,6 +23,7 @@ namespace IntegrationTest.Controller
         {
             // Arrange
             var client = _factory.CreateClient();
+            client.AddAuthHeader();
 
             // Act
             var response = await client.GetAsync("Users");
@@ -32,10 +33,33 @@ namespace IntegrationTest.Controller
         }
 
         [Fact]
+        public async Task Authenticate()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+            var request = new AuthenticateRequest() { UserName = "test", Password = "test" };
+
+            // Act
+            var response = await client.PostAsync("/Users/Authenticate", request.AsContent());
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Equal("application/json; charset=utf-8",
+                response.Content.Headers.ContentType.ToString());
+
+            var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            Assert.NotEmpty(result);
+
+            var authResponse = JsonSerializer.Deserialize<AuthenticateResponse>(result);
+            Assert.NotNull(authResponse.Id);
+        }
+
+        [Fact]
         public async Task GetUsers()
         {
             // Arrange
             var client = _factory.CreateClient();
+            client.AddAuthHeader();
 
             // Act
             var response = await client.GetAsync("Users?region=Norte&classification=2");
@@ -57,6 +81,7 @@ namespace IntegrationTest.Controller
         {
             // Arrange
             var client = _factory.CreateClient();
+            client.AddAuthHeader();
 
             // Act
             var response = await client.GetAsync("Users?region=Norte&classification=2&pageNumber=999");
@@ -78,6 +103,7 @@ namespace IntegrationTest.Controller
         {
             // Arrange
             var client = _factory.CreateClient();
+            client.AddAuthHeader();
             List<UserInput> request = null;
 
             // Act
@@ -92,6 +118,7 @@ namespace IntegrationTest.Controller
         {
             // Arrange
             var client = _factory.CreateClient();
+            client.AddAuthHeader();
             var request = new List<UserInput>();
 
             // Act
@@ -114,6 +141,7 @@ namespace IntegrationTest.Controller
         {
             // Arrange
             var client = _factory.CreateClient();
+            client.AddAuthHeader();
             var request = new List<UserInput>() { new UserInput() };
 
             // Act
