@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 //using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.OpenApi.Models;
+using System.Net;
 
 namespace Api.StartUp
 {
@@ -18,19 +19,29 @@ namespace Api.StartUp
         {
             services.AddSwaggerGen(c =>
             {
-                services.AddSwaggerGen(swagger =>
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API" });
+
+                c.AddSecurityDefinition(AuthenticationSchemes.Basic.ToString(), new OpenApiSecurityScheme
                 {
-                    swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "My API" });
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = AuthenticationSchemes.Basic.ToString(),
+                    In = ParameterLocation.Header,
+                    Description = "Basic Authorization header using the Bearer scheme."
                 });
 
-                ////Show Authorize
-                //c.AddSecurityDefinition("Bearer", new ApiKeyScheme { In = "header", Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"", Name = "Authorization", Type = "apiKey" });
-                //c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> { { "Bearer", Enumerable.Empty<string>() }, });
-
-                //// Set the comments path for the Swagger JSON and UI.
-                //var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-                //var xmlPath = Path.Combine(basePath, "Api.xml");
-                //c.IncludeXmlComments(xmlPath);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {{
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = AuthenticationSchemes.Basic.ToString()
+                        }
+                    },
+                    new string[] {}
+                }});
             });
         }
 
