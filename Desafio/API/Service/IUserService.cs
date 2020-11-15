@@ -10,14 +10,6 @@ namespace API.Service
     public interface IUserService
     {
         /// <summary>
-        /// Authenticate user
-        /// </summary>
-        /// <param name="name">name</param>
-        /// <param name="password">password</param>
-        /// <returns>Authenticated user</returns>
-        Task<Authenticate> Authenticate(string name, string password);
-
-        /// <summary>
         /// Get Users by region and classification
         /// </summary>
         /// <param name="region">Country Region</param>
