@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace API.Models
 {
@@ -24,11 +25,13 @@ namespace API.Models
         /// <summary>
         /// Id
         /// </summary>
+        [JsonPropertyName("id")]
         public Guid Id { get; set; }
 
         /// <summary>
         /// User Name
         /// </summary>
+        [JsonPropertyName("userName")]
         public string UserName { get; set; }
     }
 }

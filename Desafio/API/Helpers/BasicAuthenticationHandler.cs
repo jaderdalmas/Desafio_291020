@@ -19,7 +19,7 @@ namespace API.Helpers
     /// </summary>
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        private readonly IUserService _userService;
+        private readonly IAuthService _authService;
 
         /// <summary>
         /// Constructor
@@ -28,10 +28,10 @@ namespace API.Helpers
         /// <param name="logger">Logger Factory</param>
         /// <param name="encoder">Encoder</param>
         /// <param name="clock">System Clock</param>
-        /// <param name="userService">User Service</param>
-        public BasicAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock, IUserService userService) : base(options, logger, encoder, clock)
+        /// <param name="authService">Auth Service</param>
+        public BasicAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock, IAuthService authService) : base(options, logger, encoder, clock)
         {
-            _userService = userService;
+            _authService = authService;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace API.Helpers
                 var credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
                 var username = credentials[0];
                 var password = credentials[1];
-                user = await _userService.Authenticate(username, password).ConfigureAwait(false);
+                user = await _authService.Authenticate(username, password).ConfigureAwait(false);
             }
             catch
             {
