@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -25,24 +24,6 @@ namespace API.Controllers
         public UsersController(IUserService userService)
         {
             _userService = userService;
-        }
-
-        /// <summary>
-        /// Authenticate user
-        /// </summary>
-        /// <param name="auth">user to be authenticated</param>
-        /// <returns>Authenticated user</returns>
-        [AllowAnonymous]
-        [HttpPost("[action]")]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(AuthenticateResponse))]
-        public async Task<IActionResult> Authenticate([FromBody] AuthenticateRequest auth)
-        {
-            var user = await _userService.Authenticate(auth.UserName, auth.Password).ConfigureAwait(false);
-
-            if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
-
-            return Ok(new AuthenticateResponse(user));
         }
 
         /// <summary>
